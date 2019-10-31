@@ -69,7 +69,6 @@ namespace MeetTheTeacher.Logic
             }
         }
 
-
         /// <summary>
         /// Lehrer, deren Name in der Datei IgnoredTeachers steht werden aus der Liste 
         /// entfernt
@@ -101,7 +100,17 @@ namespace MeetTheTeacher.Logic
         /// <returns>Index oder -1, falls nicht gefunden</returns>
         private int FindIndexForTeacher(string teacherName)
         {
-            throw new NotImplementedException();
+            int idx = 0;
+            bool isContained = false;
+            for (int i = 0; i < Count && isContained == false; i++)
+            {
+                if (_teachers[i].Name.ToLower().Equals(teacherName.ToLower()))
+                {
+                    idx = i;
+                    isContained = true;
+                }
+            }
+            return idx;
         }
 
 
@@ -130,7 +139,28 @@ namespace MeetTheTeacher.Logic
         /// <returns>Text für die Html-Tabelle</returns>
         public string GetHtmlTable()
         {
-            throw new NotImplementedException();
+            _teachers.Sort();
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("<table id=\"tabelle\">");
+            sb.AppendLine();
+            sb.AppendLine("<tr>");
+            sb.AppendLine("<th align=\"center\">Name</th>");
+            sb.AppendLine("<th align=\"center\">Tag</th>");
+            sb.AppendLine("<th align=\"center\">Zeit</th>");
+            sb.AppendLine("<th align=\"center\">Raum</th>");
+            sb.AppendLine("</tr>");
+
+            foreach (Teacher teacher in _teachers)
+            {
+                sb.AppendLine("<tr>");
+                sb.AppendLine($"<th align=\"center\">{teacher.Name}</th>");
+                sb.AppendLine($"<th align=\"center\">{teacher.Day}</th>");
+                sb.AppendLine($"<th align=\"center\">{teacher.Period}</th>");
+                sb.AppendLine($"<th align=\"center\">{teacher.Room}</th>");
+                sb.AppendLine($"</tr>");
+            }
+            return sb.ToString();
         }
 
         #region private
