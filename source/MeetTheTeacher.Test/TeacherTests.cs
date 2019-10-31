@@ -10,7 +10,7 @@ namespace MeetTheTeacher.Test
         public void T01_GetHtmlForName_TeacherWithoutDetails_ShouldReturnNoLink()
         {
             // Arrange
-            Teacher teacher = new Teacher("TeacherA", "MO", "10:00-10:50", "3", "1234");
+            Teacher teacher = new Teacher("TeacherA", "MO","12.EH", "10:00-10:50", "3", "1234");
             // Act
             string html = teacher.GetHtmlForName();
             // Assert
@@ -22,7 +22,7 @@ namespace MeetTheTeacher.Test
         public void T02_GetHtmlForName_TeacherWithDetails_ShouldReturnNoLink()
         {
             // Arrange
-            TeacherWithDetail teacher = new TeacherWithDetail("TeacherA", "MO", "10:00-10:50", "3", "1234", 999);
+            TeacherWithDetail teacher = new TeacherWithDetail("TeacherA", "MO","12.EH" ,"10:00-10:50", "3", "1234", 999);
             // Act
             string html = teacher.GetHtmlForName();
             // Assert

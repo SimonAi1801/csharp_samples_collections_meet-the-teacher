@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace MeetTheTeacher.Logic
@@ -11,23 +12,30 @@ namespace MeetTheTeacher.Logic
     {
         private readonly List<Teacher> _teachers;
         private readonly Dictionary<string, int> _details;
+        private string _inputPathTeacher = @"Teachers.csv";
+        private string _inputPathIgnored = @"IgnoredTeachers.csv";
+        private string _inputPathDetails = @"Details.csv";
 
         /// <summary>
         /// Liste für Sprechstunden und Dictionary für Detailseiten anlegen
         /// </summary>
         public Controller(string[] teacherLines, string[] detailsLines)
         {
+            _teachers = new List<Teacher>();
+            _details = new Dictionary<string, int>();
+
+            InitDetails(detailsLines);
+            InitTeachers(teacherLines);
         }
 
-        public int Count => throw new NotImplementedException();
+        public int Count => _teachers.Count;
 
-        public int CountTeachersWithoutDetails => throw new NotImplementedException();
-
+        public int CountTeachersWithoutDetails => Count - CountTeachersWithDetails;
 
         /// <summary>
         /// Anzahl der Lehrer mit Detailinfos in der Liste
         /// </summary>
-        public int CountTeachersWithDetails => throw new NotImplementedException();
+        public int CountTeachersWithDetails => _details.Count;
 
         /// <summary>
         /// Aus dem Text der Sprechstundendatei werden alle Lehrersprechstunden 
@@ -37,7 +45,28 @@ namespace MeetTheTeacher.Logic
         /// <returns>Anzahl der eingelesenen Lehrer</returns>
         private void InitTeachers(string[] lines)
         {
-            throw new NotImplementedException();
+            if (lines == null)
+            {
+                lines = File.ReadAllLines(_inputPathTeacher, Encoding.UTF8);
+            }
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(";");
+                if (IsTeacherWithDetail(parts[0]))
+                {
+                    int value;
+                    _details.TryGetValue(parts[0], out value);
+                    Teacher newTeacher = new TeacherWithDetail(parts[0], parts[1],
+                        parts[2], parts[3], parts[4], parts[5], value);
+                    _teachers.Add(newTeacher);
+                }
+                else
+                {
+                    Teacher newTeacher = new Teacher(parts[0], parts[1], parts[2],
+                        parts[3], parts[4], parts[5]);
+                    _teachers.Add(newTeacher);
+                }
+            }
         }
 
 
@@ -47,7 +76,22 @@ namespace MeetTheTeacher.Logic
         /// </summary>
         public void DeleteIgnoredTeachers(string[] names)
         {
-            throw new NotImplementedException();
+            if (names == null)
+            {
+                names = File.ReadAllLines(_inputPathIgnored, Encoding.UTF8);
+            }
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[i];
+                for (int j = 0; j < Count; j++)
+                {
+                    if (_teachers[j].Name.ToLower().Equals(name.ToLower()))
+                    {
+                        _teachers.RemoveAt(j);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -67,7 +111,17 @@ namespace MeetTheTeacher.Logic
         /// </summary>
         private void InitDetails(string[] lines)
         {
-            throw new NotImplementedException();
+            if (lines == null)
+            {
+                lines = File.ReadAllLines(_inputPathDetails, Encoding.UTF8);
+            }
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(";");
+                string name = parts[0];
+                int id = Convert.ToInt32(parts[1]);
+                _details.Add(name, id);
+            }
         }
 
         /// <summary>
@@ -79,5 +133,11 @@ namespace MeetTheTeacher.Logic
             throw new NotImplementedException();
         }
 
+        #region private
+        private bool IsTeacherWithDetail(string name)
+        {
+            return _details.ContainsKey(name.ToLower());
+        }
+        #endregion
     }
 }
