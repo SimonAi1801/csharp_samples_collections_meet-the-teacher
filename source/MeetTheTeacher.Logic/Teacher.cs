@@ -11,7 +11,6 @@ namespace MeetTheTeacher.Logic
     /// </summary>
     public class Teacher : IComparable
     {
-        private string _to = null;
         public string Name { get; set; }
         public string Day { get; set; }
         public string Unity { get; set; }
@@ -36,7 +35,7 @@ namespace MeetTheTeacher.Logic
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("<tr>");
-            sb.AppendLine($"<th align=\"center\">{Name}</th>");
+            sb.AppendLine($"<th align=\"center\">{GetHtmlForName()}</th>");
             sb.AppendLine($"<th align=\"center\">{Day}</th>");
             sb.AppendLine($"<th align=\"center\">{Period}</th>");
             sb.AppendLine($"<th align=\"center\">{Room}</th>");

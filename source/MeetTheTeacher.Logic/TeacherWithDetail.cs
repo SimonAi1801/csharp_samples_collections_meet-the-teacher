@@ -12,7 +12,8 @@ namespace MeetTheTeacher.Logic
     {
         public int Id { get; set; }
 
-        public TeacherWithDetail(string name, string day, string unity, string period, string room, string remark, int id)
+        public TeacherWithDetail(string name, string day, string unity, string period, 
+            string room, string remark, int id)
             : base(name, day, unity, period, room, remark)
         {
             Id = id;
