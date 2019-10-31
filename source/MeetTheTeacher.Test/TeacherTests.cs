@@ -17,7 +17,7 @@ namespace MeetTheTeacher.Test
             Assert.AreEqual("TeacherA", html);
         }
 
-
+        
         [TestMethod()]
         public void T02_GetHtmlForName_TeacherWithDetails_ShouldReturnNoLink()
         {

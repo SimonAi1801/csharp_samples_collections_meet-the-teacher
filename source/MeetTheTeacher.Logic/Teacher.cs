@@ -27,12 +27,24 @@ namespace MeetTheTeacher.Logic
             Day = day;
             Unity = unity;
             Period = period;
-            //From = SplitPeriod(period, 1);
-            //To = SplitPeriod(period, 2);
             Room = room;
             Remark = remark;
         }
 
+        public virtual string GetTeacherHtmlRow()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("<tr>");
+            sb.AppendLine($"<th align=\"center\">{Name}</th>");
+            sb.AppendLine($"<th align=\"center\">{Day}</th>");
+            sb.AppendLine($"<th align=\"center\">{Period}</th>");
+            sb.AppendLine($"<th align=\"center\">{Room}</th>");
+            sb.AppendLine($"</tr>");
+            sb.AppendLine();
+
+            return sb.ToString();
+        }
 
         public virtual string GetHtmlForName()
         {
@@ -54,25 +66,5 @@ namespace MeetTheTeacher.Logic
             return $"{nameof(Name)}:{Name}, {nameof(Day)}:{Day}, {nameof(Unity)}:{Unity}, " +
                 $"{nameof(From)}:{From}, {nameof(To)}:{To}, {nameof(Room)}:{Room}, {nameof(Remark)}:{Remark}";
         }
-
-        #region private
-        //private string SplitPeriod(string period, int position)
-        //{
-        //    string val = " ";
-        //    if (period != " ")
-        //    {
-        //        string[] hoursAndMinutes = period.Trim(' ', 'h').Split('-');
-        //        if (position == 1)
-        //        {
-        //            val = hoursAndMinutes[0].Trim(' ');
-        //        }
-        //        else
-        //        {
-        //            val = hoursAndMinutes[1].Trim(' ');
-        //        }
-        //    }
-        //    return val;
-        //}
-        #endregion
     }
 }

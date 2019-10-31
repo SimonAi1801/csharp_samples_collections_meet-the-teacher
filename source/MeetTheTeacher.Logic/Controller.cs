@@ -142,6 +142,10 @@ namespace MeetTheTeacher.Logic
             _teachers.Sort();
             StringBuilder sb = new StringBuilder();
 
+            sb.AppendLine($"{Count} Lehrersätze eingelesen!");
+            sb.AppendLine();
+            sb.AppendLine("Html-Ausgabe in Datei Sprechstunden.html:");
+            sb.AppendLine("-----------------------------------------");
             sb.AppendLine("<table id=\"tabelle\">");
             sb.AppendLine();
             sb.AppendLine("<tr>");
@@ -150,19 +154,15 @@ namespace MeetTheTeacher.Logic
             sb.AppendLine("<th align=\"center\">Zeit</th>");
             sb.AppendLine("<th align=\"center\">Raum</th>");
             sb.AppendLine("</tr>");
+            sb.AppendLine();
 
             foreach (Teacher teacher in _teachers)
             {
-                sb.AppendLine("<tr>");
-                sb.AppendLine($"<th align=\"center\">{teacher.Name}</th>");
-                sb.AppendLine($"<th align=\"center\">{teacher.Day}</th>");
-                sb.AppendLine($"<th align=\"center\">{teacher.Period}</th>");
-                sb.AppendLine($"<th align=\"center\">{teacher.Room}</th>");
-                sb.AppendLine($"</tr>");
+                sb.AppendLine(teacher.GetTeacherHtmlRow());
             }
             return sb.ToString();
         }
-
+        
         #region private
         private bool IsTeacherWithDetail(string name)
         {
