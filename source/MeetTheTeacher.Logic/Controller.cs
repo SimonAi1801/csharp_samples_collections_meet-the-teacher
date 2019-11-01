@@ -127,10 +127,6 @@ namespace MeetTheTeacher.Logic
             _teachers.Sort();
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"{Count} Lehrersätze eingelesen!");
-            sb.AppendLine();
-            sb.AppendLine("Html-Ausgabe in Datei Sprechstunden.html:");
-            sb.AppendLine("-----------------------------------------");
             sb.AppendLine("<table id=\"tabelle\">");
             sb.AppendLine();
             sb.AppendLine("<tr>");
