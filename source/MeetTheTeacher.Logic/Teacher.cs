@@ -55,7 +55,7 @@ namespace MeetTheTeacher.Logic
             {
                 throw new ArgumentNullException(nameof(obj));
             }
-            return Name.CompareTo(teacher.Name) * -1;
+            return Name.CompareTo(teacher.Name);
         }
 
         public override string ToString()

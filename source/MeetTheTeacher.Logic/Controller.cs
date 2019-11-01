@@ -21,7 +21,7 @@ namespace MeetTheTeacher.Logic
         {
             _teachers = new List<Teacher>();
             _details = new Dictionary<string, int>();
-            
+
             InitDetails(detailsLines);
             InitTeachers(teacherLines);
         }
@@ -46,19 +46,23 @@ namespace MeetTheTeacher.Logic
             foreach (string line in lines)
             {
                 string[] parts = line.Split(";");
-                if (IsTeacherWithDetail(parts[0]))
+                if (lines[0] != line)
                 {
-                    int value;
-                    _details.TryGetValue(parts[0], out value);
-                    Teacher newTeacher = new TeacherWithDetail(parts[0], parts[1],
-                        parts[2], parts[3], parts[4], parts[5], value);
-                    _teachers.Add(newTeacher);
-                }
-                else
-                {
-                    Teacher newTeacher = new Teacher(parts[0], parts[1], parts[2],
-                        parts[3], parts[4], parts[5]);
-                    _teachers.Add(newTeacher);
+                    if (IsTeacherWithDetail(parts[0]))
+                    {
+                        int value;
+                        _details.TryGetValue(parts[0], out value);
+                        Teacher newTeacher = new TeacherWithDetail(parts[0], parts[1],
+                            parts[2], parts[3], parts[4], parts[5], value);
+
+                        _teachers.Add(newTeacher);
+                    }
+                    else
+                    {
+                        Teacher newTeacher = new Teacher(parts[0], parts[1], parts[2],
+                            parts[3], parts[4], parts[5]);
+                        _teachers.Add(newTeacher);
+                    }
                 }
             }
         }
@@ -112,7 +116,7 @@ namespace MeetTheTeacher.Logic
             foreach (string line in lines)
             {
                 string[] parts = line.Split(";");
-                string name = parts[0];
+                string name = parts[0].ToLower();
                 int id = Convert.ToInt32(parts[1]);
                 _details.Add(name, id);
             }
@@ -143,7 +147,7 @@ namespace MeetTheTeacher.Logic
             }
             return sb.ToString();
         }
-        
+
         #region private
         private bool IsTeacherWithDetail(string name)
         {
