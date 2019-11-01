@@ -46,23 +46,20 @@ namespace MeetTheTeacher.Logic
             foreach (string line in lines)
             {
                 string[] parts = line.Split(";");
-                if (lines[0] != line)
-                {
-                    if (IsTeacherWithDetail(parts[0]))
-                    {
-                        int value;
-                        _details.TryGetValue(parts[0], out value);
-                        Teacher newTeacher = new TeacherWithDetail(parts[0], parts[1],
-                            parts[2], parts[3], parts[4], parts[5], value);
 
-                        _teachers.Add(newTeacher);
-                    }
-                    else
-                    {
-                        Teacher newTeacher = new Teacher(parts[0], parts[1], parts[2],
-                            parts[3], parts[4], parts[5]);
-                        _teachers.Add(newTeacher);
-                    }
+                if (IsTeacherWithDetail(parts[0]))
+                {
+                    int value;
+                    _details.TryGetValue(parts[0], out value);
+                    Teacher newTeacher = new TeacherWithDetail(parts[0], parts[1],
+                        parts[2], parts[3], parts[4], parts[5], value);
+                    _teachers.Add(newTeacher);
+                }
+                else
+                {
+                    Teacher newTeacher = new Teacher(parts[0], parts[1], parts[2],
+                        parts[3], parts[4], parts[5]);
+                    _teachers.Add(newTeacher);
                 }
             }
         }
@@ -75,10 +72,9 @@ namespace MeetTheTeacher.Logic
         {
             for (int i = 0; i < names.Length; i++)
             {
-                string name = names[i];
                 for (int j = 0; j < Count; j++)
                 {
-                    if (_teachers[j].Name.ToLower().Equals(name.ToLower()))
+                    if (_teachers[j].Name.ToLower().Equals(names[i].ToLower()))
                     {
                         _teachers.RemoveAt(j);
                     }
