@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+
 namespace MeetTheTeacher.Logic
 {
     /// <summary>
@@ -12,9 +13,6 @@ namespace MeetTheTeacher.Logic
     {
         private readonly List<Teacher> _teachers;
         private readonly Dictionary<string, int> _details;
-        private string _inputPathTeacher = @"Teachers.csv";
-        private string _inputPathIgnored = @"IgnoredTeachers.csv";
-        private string _inputPathDetails = @"Details.csv";
 
         /// <summary>
         /// Liste für Sprechstunden und Dictionary für Detailseiten anlegen
@@ -23,7 +21,7 @@ namespace MeetTheTeacher.Logic
         {
             _teachers = new List<Teacher>();
             _details = new Dictionary<string, int>();
-
+            
             InitDetails(detailsLines);
             InitTeachers(teacherLines);
         }
@@ -45,10 +43,6 @@ namespace MeetTheTeacher.Logic
         /// <returns>Anzahl der eingelesenen Lehrer</returns>
         private void InitTeachers(string[] lines)
         {
-            if (lines == null)
-            {
-                lines = File.ReadAllLines(_inputPathTeacher, Encoding.UTF8);
-            }
             foreach (string line in lines)
             {
                 string[] parts = line.Split(";");
@@ -75,11 +69,6 @@ namespace MeetTheTeacher.Logic
         /// </summary>
         public void DeleteIgnoredTeachers(string[] names)
         {
-            if (names == null)
-            {
-                names = File.ReadAllLines(_inputPathIgnored, Encoding.UTF8);
-            }
-
             for (int i = 0; i < names.Length; i++)
             {
                 string name = names[i];
@@ -120,10 +109,6 @@ namespace MeetTheTeacher.Logic
         /// </summary>
         private void InitDetails(string[] lines)
         {
-            if (lines == null)
-            {
-                lines = File.ReadAllLines(_inputPathDetails, Encoding.UTF8);
-            }
             foreach (string line in lines)
             {
                 string[] parts = line.Split(";");

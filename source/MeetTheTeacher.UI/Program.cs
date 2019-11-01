@@ -27,6 +27,8 @@ namespace MeetTheTeacher.UI
             string[] ignoredNames = File.ReadAllLines(Path.Combine(pathToInputFiles, ignoredTeachersFileName), Encoding.UTF8);
 
             Controller ctrl = new Controller(teacherLines, detailLines);
+            ctrl.DeleteIgnoredTeachers(ignoredNames);
+
 
             throw new NotImplementedException("Ausgabe lt. Angabe (siehe Screenshots) implementieren!");
 

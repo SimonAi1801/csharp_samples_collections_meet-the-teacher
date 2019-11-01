@@ -15,8 +15,6 @@ namespace MeetTheTeacher.Logic
         public string Day { get; set; }
         public string Unity { get; set; }
         public string Period { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
         public string Room { get; set; }
         public string Remark { get; set; }
 
@@ -63,7 +61,7 @@ namespace MeetTheTeacher.Logic
         public override string ToString()
         {
             return $"{nameof(Name)}:{Name}, {nameof(Day)}:{Day}, {nameof(Unity)}:{Unity}, " +
-                $"{nameof(From)}:{From}, {nameof(To)}:{To}, {nameof(Room)}:{Room}, {nameof(Remark)}:{Remark}";
+                $"{nameof(Period)}:{Period}, {nameof(Room)}:{Room}, {nameof(Remark)}:{Remark}";
         }
     }
 }
